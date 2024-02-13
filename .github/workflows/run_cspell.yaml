@@ -19,7 +19,7 @@ jobs:
       with:
         PATTERNS: |
           **/*.+(md|vue|js|html|json)
-          !+(node_modules|test-results|.unlighthouse)
+          !+(node_modules|test-results|.unlighthouse)/**/*.*
     - name: Print Changes
       run: echo '${{ env.GIT_DIFF_FILTERED }}' 
     - name: Get Node
