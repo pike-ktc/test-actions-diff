@@ -6,7 +6,7 @@ on:
         - 'main'
 jobs:
   DiffCheck:
-    name: ESLint
+    name: Check Diff
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,9 +23,11 @@ jobs:
           FILES: |
                 yarn.lock
                 .eslintrc
+    - name: Print Changes
+      run: echo '${{ env.GIT_DIFF }}' 
     - name: Get Node
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
     - name: Run CSpell
-      run: npx cspell --no-progress --show-context --no-exit-code ${{ env.GIT_DIFF_FILTERED }}
+      run: npx cspell --no-progress --show-context --no-exit-code ${{ env.GIT_DIFF }}
