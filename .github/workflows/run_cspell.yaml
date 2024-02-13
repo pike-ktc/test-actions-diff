@@ -18,11 +18,8 @@ jobs:
       uses: technote-space/get-diff-action@v6
       with:
         PATTERNS: |
-          +(src|tests|E2E)/**/*.+(md|vue|js|html|json)
-      #     !src/exclude.ts
-      #     FILES: |
-      #           yarn.lock
-      #           .eslintrc
+          **/*.+(md|vue|js|html|json)
+          !+(node_modules|test-results|.unlighthouse)
     - name: Print Changes
       run: echo '${{ env.GIT_DIFF_FILTERED }}' 
     - name: Get Node
