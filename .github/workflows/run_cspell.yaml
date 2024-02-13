@@ -1,0 +1,31 @@
+name: Check Spelling
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+        - 'main'
+jobs:
+  DiffCheck:
+    name: ESLint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ["latest"]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Make Diff
+      uses: technote-space/get-diff-action@v6
+      with:
+        PATTERNS: |
+          +(src|__tests__)/**/*.(vue|js|html|json|md)
+          !src/exclude.ts
+          FILES: |
+                yarn.lock
+                .eslintrc
+    - name: Get Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Run CSpell
+      run: npx cspell --no-progress --show-context --no-exit-code  "**/*.vue" "**/*.md" "**/*.js" "**/*.html" "**/*.json"
