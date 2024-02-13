@@ -18,7 +18,7 @@ jobs:
       uses: technote-space/get-diff-action@v6
       with:
         PATTERNS: |
-          src/**/*.md
+          +(src|tests|E2E)/**/*.+(md|vue|js|html|json)
       #     !src/exclude.ts
       #     FILES: |
       #           yarn.lock
